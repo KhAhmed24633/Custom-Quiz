@@ -2,9 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:my_quiz_project/views/constant/constants.dart';
 import 'package:my_quiz_project/views/signup/after_sign_up.dart';
 
-class SignupScreen extends StatelessWidget {
+class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
 
+  @override
+  State<SignupScreen> createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
+  TextEditingController namecontroller = TextEditingController();
+  TextEditingController emailcontroller = TextEditingController();
+  TextEditingController passwordcontroller = TextEditingController();
+  TextEditingController confirmpasswordcontroller = TextEditingController();
+  TextEditingController birthcontroller = TextEditingController();
+  TextEditingController phonecontroller = TextEditingController();
+
+  String? name, email, password, confirmpassword, birth, phone;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,17 +50,19 @@ class SignupScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       sizebox10,
-                      TextField(
-                        keyboardType: TextInputType.name,
-                        keyboardAppearance: Brightness.light,
-                        decoration: InputDecoration(
-                          labelText: 'Name',
-                          labelStyle: ktextsize20,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                      ),
+                      buildNameField(),
+
+                      // TextField(
+                      //   keyboardType: TextInputType.name,
+                      //   keyboardAppearance: Brightness.light,
+                      //   decoration: InputDecoration(
+                      //     labelText: 'Name',
+                      //     labelStyle: ktextsize20,
+                      //     border: OutlineInputBorder(
+                      //       borderRadius: BorderRadius.circular(10),
+                      //     ),
+                      //   ),
+                      // ),
                       sizebox10,
                       TextField(
                         keyboardType: TextInputType.emailAddress,
@@ -61,17 +76,19 @@ class SignupScreen extends StatelessWidget {
                         ),
                       ),
                       sizebox10,
-                      TextField(
-                        keyboardType: TextInputType.phone,
-                        keyboardAppearance: Brightness.light,
-                        decoration: InputDecoration(
-                          labelText: 'Mobile No #',
-                          labelStyle: ktextsize20,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                      ),
+                      buildPhoneField(),
+
+                      // TextField(
+                      //   keyboardType: TextInputType.phone,
+                      //   keyboardAppearance: Brightness.light,
+                      //   decoration: InputDecoration(
+                      //     labelText: 'Mobile No #',
+                      //     labelStyle: ktextsize20,
+                      //     border: OutlineInputBorder(
+                      //       borderRadius: BorderRadius.circular(10),
+                      //     ),
+                      //   ),
+                      // ),
                       sizebox10,
                       TextField(
                         keyboardType: TextInputType.datetime,
@@ -144,5 +161,41 @@ class SignupScreen extends StatelessWidget {
             ),
           ),
         ));
+  }
+
+  TextFormField buildNameField() {
+    return TextFormField(
+      controller: namecontroller,
+      textInputAction: TextInputAction.next,
+      onSaved: (newValue) {
+        name = newValue;
+      },
+      keyboardType: TextInputType.name,
+      decoration: InputDecoration(
+        labelText: 'Name',
+        prefixIcon: const Icon(Icons.person),
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: Colors.black)),
+      ),
+    );
+  }
+
+  TextFormField buildPhoneField() {
+    return TextFormField(
+      controller: phonecontroller,
+      textInputAction: TextInputAction.next,
+      onSaved: (newValue) {
+        phone = newValue;
+      },
+      keyboardType: TextInputType.phone,
+      decoration: InputDecoration(
+        labelText: 'Mobile No#',
+        prefixIcon: const Icon(Icons.phone),
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: Colors.black)),
+      ),
+    );
   }
 }

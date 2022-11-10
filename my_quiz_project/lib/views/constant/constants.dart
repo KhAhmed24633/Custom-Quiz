@@ -29,6 +29,8 @@ const ktextsize16 = TextStyle(fontSize: 16);
 const ktextsize14 = TextStyle(fontSize: 14);
 const ktextsize12 = TextStyle(fontSize: 12);
 
+const String knameNullError = "Please Enter your name";
+
 final RegExp emailValidatorRegExp =
     RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 
@@ -36,7 +38,7 @@ const String kEmailNullError = "Please Enter your email";
 
 const String kInvalidEmailError = "Please Enter Valid Email";
 
-const String kPassNullError = "Please Enter your password";
+const String kPasswordNullError = "Please Enter your password";
 
 const String kShortPassError = "Password is too short";
 

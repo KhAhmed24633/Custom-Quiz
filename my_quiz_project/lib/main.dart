@@ -18,16 +18,16 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Quiz App',
-      theme: ThemeData(
-          primarySwatch: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity),
-      home: const
-          //
-          LoginScreen(),
-      // SignupScreen()
-      // SplashScreen(),
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Quiz App',
+        theme: ThemeData(
+            primarySwatch: Colors.blue,
+            visualDensity: VisualDensity.adaptivePlatformDensity),
+        home: const
+            //
+            // LoginScreen(),
+            SignupScreen()
+        // SplashScreen(),
+        );
   }
 }

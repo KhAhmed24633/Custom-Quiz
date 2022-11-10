@@ -186,9 +186,9 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       validator: (value) {
         if (value!.isEmpty) {
-          return kPassNullError;
+          return kPasswordNullError;
         }
-        // return null;
+        return null;
       },
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
