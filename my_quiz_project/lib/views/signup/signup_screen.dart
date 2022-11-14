@@ -10,14 +10,15 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  TextEditingController namecontroller = TextEditingController();
+  TextEditingController firstnamecontroller = TextEditingController();
+  TextEditingController lastnamecontroller = TextEditingController();
   TextEditingController emailcontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
   TextEditingController confirmpasswordcontroller = TextEditingController();
-  TextEditingController birthcontroller = TextEditingController();
   TextEditingController phonecontroller = TextEditingController();
 
-  String? name, email, password, confirmpassword, birth, phone;
+  String? firstname, lastname, email, password, confirmpassword, birth, phone;
+  final _signupformkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,129 +26,64 @@ class _SignupScreenState extends State<SignupScreen> {
           title: const Text('Sign Up',
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Center(
-                  child: Text(
-                    'Quiz App',
-                    style: TextStyle(fontSize: 60),
+        body: Form(
+          key: _signupformkey,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Center(
+                    child: Text(
+                      'Quiz App',
+                      style: TextStyle(fontSize: 50),
+                    ),
                   ),
-                ),
-                sizebox30,
-                Row(
-                  children: const [
-                    Text('Sign UP',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold)),
-                  ],
-                ),
-                sizebox10,
-                Card(
-                  child: Column(
-                    children: [
-                      sizebox10,
-                      buildNameField(),
-
-                      // TextField(
-                      //   keyboardType: TextInputType.name,
-                      //   keyboardAppearance: Brightness.light,
-                      //   decoration: InputDecoration(
-                      //     labelText: 'Name',
-                      //     labelStyle: ktextsize20,
-                      //     border: OutlineInputBorder(
-                      //       borderRadius: BorderRadius.circular(10),
-                      //     ),
-                      //   ),
-                      // ),
-                      sizebox10,
-                      TextField(
-                        keyboardType: TextInputType.emailAddress,
-                        keyboardAppearance: Brightness.light,
-                        decoration: InputDecoration(
-                          labelText: 'Email',
-                          labelStyle: ktextsize20,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                      ),
-                      sizebox10,
-                      buildPhoneField(),
-
-                      // TextField(
-                      //   keyboardType: TextInputType.phone,
-                      //   keyboardAppearance: Brightness.light,
-                      //   decoration: InputDecoration(
-                      //     labelText: 'Mobile No #',
-                      //     labelStyle: ktextsize20,
-                      //     border: OutlineInputBorder(
-                      //       borderRadius: BorderRadius.circular(10),
-                      //     ),
-                      //   ),
-                      // ),
-                      sizebox10,
-                      TextField(
-                        keyboardType: TextInputType.datetime,
-                        keyboardAppearance: Brightness.light,
-                        decoration: InputDecoration(
-                          labelText: 'D.O.B',
-                          labelStyle: ktextsize20,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                      ),
-                      sizebox10,
-                      TextField(
-                        keyboardType: TextInputType.visiblePassword,
-                        keyboardAppearance: Brightness.light,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          labelText: 'Password',
-                          labelStyle: ktextsize20,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                      ),
-                      sizebox10,
-                      TextField(
-                        keyboardType: TextInputType.visiblePassword,
-                        keyboardAppearance: Brightness.light,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          labelText: 'Confirm Password',
-                          labelStyle: ktextsize20,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                      ),
-                      sizebox10,
+                  sizebox30,
+                  Row(
+                    children: const [
+                      Text('Create a New Account',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold)),
                     ],
                   ),
-                ),
-                sizebox20,
-                Center(
-                  child: InkWell(
-                    onTap: (() {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => AfterSigningup(),
-                        ),
-                      );
-                    }),
-                    child: Container(
-                      height: 30,
-                      width: 80,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: Color.fromARGB(255, 243, 65, 184),
-                      ),
+                  sizebox10,
+                  Card(
+                    child: Column(
+                      children: [
+                        sizebox10,
+                        buildFisrtNameField(),
+                        sizebox5,
+                        buildLastNameField(),
+                        sizebox5,
+                        buildPhoneField(),
+                        sizebox5,
+                        buildEmailField(),
+                        sizebox5,
+                        buildPasswordField(),
+                        sizebox5,
+                        buildConfirmPasswordField(),
+                        sizebox10,
+                      ],
+                    ),
+                  ),
+                  sizebox10,
+                  Container(
+                    height: 35,
+                    width: 150,
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(30)),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (_signupformkey.currentState!.validate()) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const AfterSigningup(),
+                            ),
+                          );
+                        }
+                      },
                       child: const Center(
                         child: Text(
                           'Sign Up',
@@ -156,28 +92,91 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ));
   }
 
-  TextFormField buildNameField() {
+  TextFormField buildFisrtNameField() {
     return TextFormField(
-      controller: namecontroller,
+      controller: firstnamecontroller,
       textInputAction: TextInputAction.next,
-      onSaved: (newValue) {
-        name = newValue;
-      },
       keyboardType: TextInputType.name,
       decoration: InputDecoration(
-        labelText: 'Name',
-        prefixIcon: const Icon(Icons.person),
+        labelText: 'First Name',
+        prefixIcon: const Icon(
+          Icons.person,
+          color: coloricon,
+        ),
         border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(15),
             borderSide: const BorderSide(color: Colors.black)),
       ),
+      onSaved: (newValue) {
+        firstname = newValue;
+      },
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please Enter your First Name';
+        }
+        return null;
+      },
+    );
+  }
+
+  TextFormField buildLastNameField() {
+    return TextFormField(
+      controller: lastnamecontroller,
+      textInputAction: TextInputAction.next,
+      keyboardType: TextInputType.name,
+      decoration: InputDecoration(
+        labelText: 'Last Name',
+        prefixIcon: const Icon(
+          Icons.person,
+          color: coloricon,
+        ),
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: const BorderSide(color: Colors.black)),
+      ),
+      onSaved: (newValue) {
+        lastname = newValue;
+      },
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please Enter your Last Name';
+        }
+        return null;
+      },
+    );
+  }
+
+  TextFormField buildEmailField() {
+    return TextFormField(
+      controller: emailcontroller,
+      textInputAction: TextInputAction.next,
+      keyboardType: TextInputType.emailAddress,
+      decoration: InputDecoration(
+        labelText: 'Email',
+        prefixIcon: const Icon(
+          Icons.email,
+          color: coloricon,
+        ),
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: const BorderSide(color: Colors.black)),
+      ),
+      onSaved: (newValue) {
+        email = newValue;
+      },
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please Enter your Email';
+        }
+        return null;
+      },
     );
   }
 
@@ -185,17 +184,102 @@ class _SignupScreenState extends State<SignupScreen> {
     return TextFormField(
       controller: phonecontroller,
       textInputAction: TextInputAction.next,
-      onSaved: (newValue) {
-        phone = newValue;
-      },
       keyboardType: TextInputType.phone,
       decoration: InputDecoration(
         labelText: 'Mobile No#',
-        prefixIcon: const Icon(Icons.phone),
+        prefixIcon: const Icon(
+          Icons.phone,
+          color: coloricon,
+        ),
         border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(15),
             borderSide: const BorderSide(color: Colors.black)),
       ),
+      onSaved: (newValue) {
+        phone = newValue;
+      },
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return kMobileNullError;
+        } else if (!phonevalidatorRegExp.hasMatch(value)) {
+          return '';
+        }
+
+        return null;
+      },
+    );
+  }
+
+  TextFormField buildPasswordField() {
+    return TextFormField(
+      controller: passwordcontroller,
+      textInputAction: TextInputAction.next,
+      keyboardType: TextInputType.visiblePassword,
+      decoration: InputDecoration(
+        labelText: 'Password',
+        prefixIcon: const Icon(
+          Icons.password,
+          color: coloricon,
+        ),
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: const BorderSide(color: Colors.black)),
+      ),
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          // setState(() {});
+        } else if (shortpasswordvalidatorRegExp.hasMatch(value)) {
+        } else if (passwordvalidatorRegExp.hasMatch(value)) {}
+        return;
+      },
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return kPasswordNullError;
+        } else if (!shortpasswordvalidatorRegExp.hasMatch(value)) {
+          return kShortPasswordError;
+        } else if (!passwordvalidatorRegExp.hasMatch(value)) {
+          return kPasswordError;
+        }
+        return null;
+      },
+    );
+  }
+
+  TextFormField buildConfirmPasswordField() {
+    return TextFormField(
+      controller: confirmpasswordcontroller,
+      textInputAction: TextInputAction.done,
+      keyboardType: TextInputType.visiblePassword,
+      decoration: InputDecoration(
+        labelText: 'Confirm Password',
+        prefixIcon: const Icon(
+          Icons.password,
+          color: coloricon,
+        ),
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: const BorderSide(color: Colors.black)),
+      ),
+      onSaved: (newValue) {
+        confirmpassword = newValue;
+      },
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          // setState(() {});
+        } else if (shortpasswordvalidatorRegExp.hasMatch(value)) {
+        } else if (passwordvalidatorRegExp.hasMatch(value)) {}
+        return;
+      },
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return kPasswordNullError;
+        } else if (!shortpasswordvalidatorRegExp.hasMatch(value)) {
+          return kShortPasswordError;
+        } else if (!passwordvalidatorRegExp.hasMatch(value)) {
+          return kPasswordError;
+        }
+        return null;
+      },
     );
   }
 }
